@@ -6,7 +6,7 @@
 
     <groupId>ru.strukov</groupId>
     <artifactId>spring-01-homework</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2</version>
 
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
@@ -26,5 +26,6 @@
             <version>5.0</version>
         </dependency>
     </dependencies>
+
 
 </project>

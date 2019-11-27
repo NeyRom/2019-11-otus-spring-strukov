@@ -26,3 +26,4 @@ hs_err_pid*
 *.iws
 *.iml
 *.ip
+/spring-01-homework/target/
