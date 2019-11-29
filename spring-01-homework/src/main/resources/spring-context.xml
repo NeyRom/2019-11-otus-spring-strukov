@@ -8,5 +8,8 @@
     <bean id="studentService" class="ru.strukov.testing.service.StudentServiceImpl">
         <constructor-arg name="studentDao" ref="studentDao"/>
     </bean>
+    <bean id="TestQuestionDao" class="ru.strukov.testing.dao.TestQuestionDaoImpl">
+        <constructor-arg name="resource" value="/qna.csv"/>
+    </bean>
 
 </beans>
