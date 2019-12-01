@@ -1,5 +1,9 @@
 package ru.strukov.testing.domain;
 
+import com.opencsv.bean.CsvBindAndSplitByName;
+import com.opencsv.bean.CsvBindByName;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -7,25 +11,41 @@ import java.util.Set;
  */
 
 public class TestQuestion {
-    private final String question;
-    private final Set<String> answerVariants;
-    private final String answer;
+    @CsvBindByName
+    private String question;
+    @CsvBindAndSplitByName(elementType = String.class, collectionType = HashSet.class, splitOn = "\\|")
+    private Set<String> answers;
+    @CsvBindByName
+    private String rightAnswer;
 
-    public TestQuestion(String question, Set<String> answerVariants, String answer) {
+    public void setQuestion(String question) {
         this.question = question;
-        this.answerVariants = answerVariants;
-        this.answer = answer;
+    }
+
+    public void setAnswers(Set<String> answers) {
+        this.answers = answers;
+    }
+
+    public void setRightAnswer(String rightAnswer) {
+        this.rightAnswer = rightAnswer;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public Set<String> getAnswerVariants() {
-        return answerVariants;
+    public Set<String> getAnswers() {
+        return answers;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
+
+    @Override
+    public String toString() {
+        return "Вопрос тестирования: " + question +
+                ", ответы=" + answers +
+                ", правильный ответ=" + rightAnswer;
     }
 }

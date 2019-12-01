@@ -5,13 +5,19 @@ package ru.strukov.testing.domain;
  */
 
 public class Student {
-    private final String name;
+    private final String firstName;
+    private final String lastName;
 
-    public Student(String name) {
-        this.name = name;
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

@@ -8,4 +8,5 @@ import ru.strukov.testing.domain.Student;
 
 public interface StudentService {
     Student setName();
+    String getFullName(Student student);
 }

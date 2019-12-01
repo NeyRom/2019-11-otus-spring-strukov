@@ -20,6 +20,14 @@ public class StudentServiceImpl implements StudentService {
     public Student setName() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Пожалуйста, введите имя:");
-        return studentDao.createStudent(scanner.nextLine());
+        String firstName = scanner.nextLine();
+        System.out.println("Пожалуйста, введите фамилию:");
+        String lastName = scanner.nextLine();
+        return studentDao.createStudent(firstName, lastName);
+    }
+
+    @Override
+    public String getFullName(Student student) {
+        return student.getFirstName() + " " + student.getLastName();
     }
 }

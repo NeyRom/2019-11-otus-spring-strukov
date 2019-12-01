@@ -11,5 +11,9 @@
     <bean id="TestQuestionDao" class="ru.strukov.testing.dao.TestQuestionDaoImpl">
         <constructor-arg name="resource" value="/qna.csv"/>
     </bean>
+    <bean id="testQuestionService" class="ru.strukov.testing.service.TestQuestionServiceImpl">
+        <constructor-arg name="testQuestionDao" ref="TestQuestionDao" />
+        <constructor-arg name="studentService" ref="studentService" />
+    </bean>
 
 </beans>

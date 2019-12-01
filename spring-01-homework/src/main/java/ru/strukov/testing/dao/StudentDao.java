@@ -7,5 +7,5 @@ import ru.strukov.testing.domain.Student;
  */
 
 public interface StudentDao {
-    Student createStudent(String name);
+    Student createStudent(String firstName, String lastName);
 }

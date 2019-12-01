@@ -9,7 +9,7 @@ import ru.strukov.testing.domain.Student;
 public class StudentDaoImpl implements StudentDao {
 
     @Override
-    public Student createStudent(String name) {
-        return new Student(name);
+    public Student createStudent(String firstName, String lastName) {
+        return new Student(firstName, lastName);
     }
 }
