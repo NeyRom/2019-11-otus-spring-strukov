@@ -4,9 +4,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.core.io.Resource;
 import ru.strukov.testing.domain.TestQuestion;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
     public List<TestQuestion> getQuestions(Resource resource) {
         List<TestQuestion> questions = new ArrayList<>();
         try {
-            File file = resource.getFile();
-            questions = new CsvToBeanBuilder<TestQuestion>(new FileReader(file))
+            InputStreamReader reader = new InputStreamReader(resource.getInputStream());
+            questions = new CsvToBeanBuilder<TestQuestion>(reader)
                     .withType(TestQuestion.class)
                     .build()
                     .parse();
