@@ -20,5 +20,4 @@
     </bean>
     <bean id="consoleService" class="ru.strukov.testing.service.ConsoleServiceImpl">
     </bean>
-
 </beans>

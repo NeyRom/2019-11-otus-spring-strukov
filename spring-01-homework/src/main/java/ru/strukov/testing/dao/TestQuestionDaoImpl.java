@@ -46,5 +46,4 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
     public String getResource() {
         return resource;
     }
-
 }
