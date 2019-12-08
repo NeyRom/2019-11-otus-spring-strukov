@@ -9,5 +9,4 @@ import org.springframework.core.io.Resource;
 public interface TestQuestionService {
     void conductTesting(Resource resource);
     void setStudent();
-    String resource();
 }

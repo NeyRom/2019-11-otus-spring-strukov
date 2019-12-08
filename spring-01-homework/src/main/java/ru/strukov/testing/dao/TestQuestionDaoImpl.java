@@ -3,10 +3,12 @@ package ru.strukov.testing.dao;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.core.io.Resource;
 import ru.strukov.testing.domain.TestQuestion;
+import ru.strukov.testing.service.ConsoleService;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,9 +17,11 @@ import java.util.List;
 
 public class TestQuestionDaoImpl implements TestQuestionDao {
     private final String resource;
+    private final ConsoleService consoleService;
 
-    public TestQuestionDaoImpl(String resource) {
+    public TestQuestionDaoImpl(String resource, ConsoleService consoleService) {
         this.resource = resource;
+        this.consoleService = consoleService;
     }
 
     @Override
@@ -29,9 +33,13 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
                     .withType(TestQuestion.class)
                     .build()
                     .parse();
+        } catch (IllegalStateException ise) {
+            consoleService.printMessage("Некорректный формат CSV-файла");
+            ise.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Collections.shuffle(questions);
         return questions;
     }
 

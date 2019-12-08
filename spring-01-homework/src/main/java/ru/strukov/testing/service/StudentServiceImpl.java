@@ -3,26 +3,24 @@ package ru.strukov.testing.service;
 import ru.strukov.testing.dao.StudentDao;
 import ru.strukov.testing.domain.Student;
 
-import java.util.Scanner;
-
 /**
  * Created by Roman Strukov on 27.11.2019.
  */
 
 public class StudentServiceImpl implements StudentService {
     private final StudentDao studentDao;
+    private final ConsoleService consoleService;
 
-    public StudentServiceImpl(StudentDao studentDao) {
+    public StudentServiceImpl(StudentDao studentDao,
+                              ConsoleService consoleService) {
         this.studentDao = studentDao;
+        this.consoleService = consoleService;
     }
 
     @Override
     public Student setName() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Пожалуйста, введите имя:");
-        String firstName = scanner.nextLine();
-        System.out.println("Пожалуйста, введите фамилию:");
-        String lastName = scanner.nextLine();
+        String firstName = consoleService.getStringWithMessage("Пожалуйста, введите имя:");
+        String lastName = consoleService.getStringWithMessage("Пожалуйста, введите фамилию:");
         return studentDao.createStudent(firstName, lastName);
     }
 

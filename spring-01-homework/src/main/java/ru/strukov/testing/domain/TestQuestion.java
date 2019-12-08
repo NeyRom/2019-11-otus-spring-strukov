@@ -3,8 +3,9 @@ package ru.strukov.testing.domain;
 import com.opencsv.bean.CsvBindAndSplitByName;
 import com.opencsv.bean.CsvBindByName;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Roman Strukov on 27.11.2019.
@@ -13,8 +14,8 @@ import java.util.Set;
 public class TestQuestion {
     @CsvBindByName
     private String question;
-    @CsvBindAndSplitByName(elementType = String.class, collectionType = HashSet.class, splitOn = "\\|")
-    private Set<String> answers;
+    @CsvBindAndSplitByName(elementType = String.class, collectionType = ArrayList.class, splitOn = "\\|")
+    private List<String> answers;
     @CsvBindByName
     private String rightAnswer;
 
@@ -22,7 +23,7 @@ public class TestQuestion {
         this.question = question;
     }
 
-    public void setAnswers(Set<String> answers) {
+    public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 
@@ -34,7 +35,8 @@ public class TestQuestion {
         return question;
     }
 
-    public Set<String> getAnswers() {
+    public List<String> getAnswers() {
+        Collections.shuffle(answers);
         return answers;
     }
 
