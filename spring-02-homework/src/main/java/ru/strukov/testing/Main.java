@@ -1,8 +1,9 @@
 package ru.strukov.testing;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 import ru.strukov.testing.dao.TestQuestionDao;
 import ru.strukov.testing.service.TestQuestionService;
 
@@ -11,11 +12,13 @@ import ru.strukov.testing.service.TestQuestionService;
  */
 
 @Configuration
+@PropertySource("classpath:application.properties")
 @ComponentScan
 public class Main {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new
-                ClassPathXmlApplicationContext("/spring-context.xml");
+        AnnotationConfigApplicationContext context = new
+                AnnotationConfigApplicationContext(Main.class);
+
         TestQuestionService questionsService = context.getBean(TestQuestionService.class);
         TestQuestionDao questionDao = context.getBean(TestQuestionDao.class);
         questionsService.setStudent();

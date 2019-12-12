@@ -1,5 +1,6 @@
 package ru.strukov.testing.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.strukov.testing.dao.StudentDao;
 import ru.strukov.testing.domain.Student;
@@ -11,18 +12,18 @@ import ru.strukov.testing.domain.Student;
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentDao studentDao;
-    private final ConsoleService consoleService;
+    private final IOService IOService;
 
-    public StudentServiceImpl(StudentDao studentDao,
-                              ConsoleService consoleService) {
+    @Autowired
+    public StudentServiceImpl(StudentDao studentDao, IOService IOService) {
         this.studentDao = studentDao;
-        this.consoleService = consoleService;
+        this.IOService = IOService;
     }
 
     @Override
     public Student setName() {
-        String firstName = consoleService.getStringWithMessage("Пожалуйста, введите имя:");
-        String lastName = consoleService.getStringWithMessage("Пожалуйста, введите фамилию:");
+        String firstName = IOService.getStringWithMessage("Пожалуйста, введите имя:");
+        String lastName = IOService.getStringWithMessage("Пожалуйста, введите фамилию:");
         return studentDao.createStudent(firstName, lastName);
     }
 

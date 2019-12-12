@@ -1,5 +1,7 @@
 package ru.strukov.testing.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import ru.strukov.testing.dao.TestQuestionDao;
@@ -13,17 +15,19 @@ import java.util.List;
  */
 
 @Service
+@Primary
 public class TestQuestionServiceImpl implements TestQuestionService {
     private final TestQuestionDao testQuestionDao;
     private Student student;
     private final StudentService studentService;
-    private final ConsoleService consoleService;
+    private final IOService IOService;
 
+    @Autowired
     public TestQuestionServiceImpl(TestQuestionDao testQuestionDao, StudentService studentService,
-                                   ConsoleService consoleService) {
+                                   IOService IOService) {
         this.testQuestionDao = testQuestionDao;
         this.studentService = studentService;
-        this.consoleService = consoleService;
+        this.IOService = IOService;
     }
 
     @Override
@@ -32,7 +36,7 @@ public class TestQuestionServiceImpl implements TestQuestionService {
         int questionsQuantity = questions.size();
         int questionNumber = 1;
         int rightAnswers = 0;
-        consoleService.printMessage("Всего вопросов будет " + questionsQuantity);
+        IOService.printMessage("Всего вопросов будет " + questionsQuantity);
         for (TestQuestion question : questions) {
             rightAnswers += processQuestion(question, questionNumber);
             questionNumber++;
@@ -46,7 +50,7 @@ public class TestQuestionServiceImpl implements TestQuestionService {
     }
 
     public int processQuestion(TestQuestion question, int questionNumber) {
-        consoleService.printMessage("Вопрос #" + questionNumber + ": " + question.getQuestion());
+        IOService.printMessage("Вопрос #" + questionNumber + ": " + question.getQuestion());
         int answerNum = 1;
         int rightAnswer = 1;
         for (String answer : question.getAnswers()) {
@@ -56,14 +60,15 @@ public class TestQuestionServiceImpl implements TestQuestionService {
             }
             answerNum++;
         }
-        int givenAnswer = consoleService.getInt();
+        int givenAnswer = IOService.getInt();
         return givenAnswer == rightAnswer ? 1 : 0;
     }
 
     public void printTestResult(int rightAnswers, int questionsQuantity) {
-        consoleService.printMessage("Результаты тестирования студента " + studentService.getFullName(student) + ":");
-        consoleService.printMessage("Правильно отвечено на " + rightAnswers + " из " +
+        IOService
+                .printMessage("Результаты тестирования студента " + studentService.getFullName(student) + ":");
+        IOService.printMessage("Правильно отвечено на " + rightAnswers + " из " +
                 questionsQuantity + " вопросов");
-        consoleService.printMessage(rightAnswers > questionsQuantity / 2 ? "Тест сдан" : "Тест не сдан");
+        IOService.printMessage(rightAnswers > questionsQuantity / 2 ? "Тест сдан" : "Тест не сдан");
     }
 }
