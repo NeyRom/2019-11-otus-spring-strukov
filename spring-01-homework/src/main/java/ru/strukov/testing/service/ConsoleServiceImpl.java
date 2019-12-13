@@ -40,5 +40,4 @@ public class ConsoleServiceImpl implements ConsoleService {
     public void printMessage(String message) {
         output.println(message);
     }
-
 }
