@@ -1,14 +1,16 @@
 package ru.strukov.testing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import ru.strukov.testing.dao.TestQuestionDao;
 import ru.strukov.testing.domain.Student;
 import ru.strukov.testing.domain.TestQuestion;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Roman Strukov on 30.11.2019.
@@ -21,22 +23,30 @@ public class TestQuestionServiceImpl implements TestQuestionService {
     private Student student;
     private final StudentService studentService;
     private final IOService IOService;
+    private Locale locale;
+    private final LocaleService localeService;
+    private final MessageSource messageSource;
 
     @Autowired
-    public TestQuestionServiceImpl(TestQuestionDao testQuestionDao, StudentService studentService,
-                                   IOService IOService) {
+    public TestQuestionServiceImpl(TestQuestionDao testQuestionDao,
+                                   StudentService studentService,
+                                   IOService IOService,
+                                   LocaleService localeService,
+                                   MessageSource messageSource) {
         this.testQuestionDao = testQuestionDao;
         this.studentService = studentService;
         this.IOService = IOService;
+        this.localeService = localeService;
+        this.messageSource = messageSource;
     }
 
     @Override
-    public void conductTesting(Resource resource) {
-        List<TestQuestion> questions = testQuestionDao.getQuestions(resource);
+    public void conductTesting(ApplicationContext context) {
+        List<TestQuestion> questions = testQuestionDao.getQuestions(context, localeService.getPathComponent(locale));
         int questionsQuantity = questions.size();
         int questionNumber = 1;
         int rightAnswers = 0;
-        IOService.printMessage("Всего вопросов будет " + questionsQuantity);
+        IOService.printMessage(messageSource.getMessage("Questions.number", new  Object[] {questionsQuantity}, locale));
         for (TestQuestion question : questions) {
             rightAnswers += processQuestion(question, questionNumber);
             questionNumber++;
@@ -46,11 +56,17 @@ public class TestQuestionServiceImpl implements TestQuestionService {
 
     @Override
     public void setStudent() {
-        student = studentService.setName();
+        student = studentService.setName(locale);
+    }
+
+    @Override
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 
     public int processQuestion(TestQuestion question, int questionNumber) {
-        IOService.printMessage("Вопрос #" + questionNumber + ": " + question.getQuestion());
+        IOService.printMessage(messageSource.getMessage("Question.caption", null, locale)
+                + questionNumber + ": " + question.getQuestion());
         int answerNum = 1;
         int rightAnswer = 1;
         for (String answer : question.getAnswers()) {
@@ -65,10 +81,11 @@ public class TestQuestionServiceImpl implements TestQuestionService {
     }
 
     public void printTestResult(int rightAnswers, int questionsQuantity) {
-        IOService
-                .printMessage("Результаты тестирования студента " + studentService.getFullName(student) + ":");
-        IOService.printMessage("Правильно отвечено на " + rightAnswers + " из " +
-                questionsQuantity + " вопросов");
-        IOService.printMessage(rightAnswers > questionsQuantity / 2 ? "Тест сдан" : "Тест не сдан");
+        IOService.printMessage(messageSource.getMessage("Testing.resultCaption",
+                new Object[] {studentService.getFullName(student)}, locale));
+        IOService.printMessage(messageSource.getMessage("Testing.rightAnswersCaption",
+                new Object[] {rightAnswers, questionsQuantity}, locale));
+        IOService.printMessage(rightAnswers > questionsQuantity / 2 ? messageSource.getMessage("Testing.passed", null
+                , locale) : messageSource.getMessage("Testing.failed", null, locale));
     }
 }

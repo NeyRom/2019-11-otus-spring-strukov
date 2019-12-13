@@ -3,6 +3,7 @@ package ru.strukov.testing.dao;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,23 @@ import java.util.List;
 @Service
 @Primary
 public class TestQuestionDaoImpl implements TestQuestionDao {
-    private final String resource;
+    private final String resourceName;
+    private final String resourceExtension;
     private final IOService IOService;
 
     @Autowired
-    public TestQuestionDaoImpl(@Value("${resource.name}") String resource, IOService IOService) {
-        this.resource = resource;
+    public TestQuestionDaoImpl(@Value("${resource.name}") String resourcePath,
+                               @Value("${resource.extension}") String resourceExtension,
+                               IOService IOService) {
+        this.resourceName = resourcePath;
+        this.resourceExtension = resourceExtension;
         this.IOService = IOService;
     }
 
     @Override
-    public List<TestQuestion> getQuestions(Resource resource) {
+    public List<TestQuestion> getQuestions(ApplicationContext context, String pathComponent) {
+        String resourcePath = resourceName + pathComponent + resourceExtension;
+        Resource resource = context.getResource(resourcePath);
         List<TestQuestion> questions = new ArrayList<>();
         try {
             InputStreamReader reader = new InputStreamReader(resource.getInputStream());
@@ -50,7 +57,4 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
         return questions;
     }
 
-    public String getResource() {
-        return resource;
-    }
 }

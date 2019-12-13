@@ -1,10 +1,8 @@
 package ru.strukov.testing;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import ru.strukov.testing.dao.TestQuestionDao;
+import org.springframework.context.annotation.*;
+import ru.strukov.testing.config.MessageConfig;
+import ru.strukov.testing.service.LocaleService;
 import ru.strukov.testing.service.TestQuestionService;
 
 /**
@@ -12,6 +10,7 @@ import ru.strukov.testing.service.TestQuestionService;
  */
 
 @Configuration
+@Import(MessageConfig.class)
 @PropertySource("classpath:application.properties")
 @ComponentScan
 public class Main {
@@ -20,9 +19,10 @@ public class Main {
                 AnnotationConfigApplicationContext(Main.class);
 
         TestQuestionService questionsService = context.getBean(TestQuestionService.class);
-        TestQuestionDao questionDao = context.getBean(TestQuestionDao.class);
+        LocaleService localeService = context.getBean(LocaleService.class);
+        questionsService.setLocale(localeService.getUserLocale());
         questionsService.setStudent();
-        questionsService.conductTesting(context.getResource(questionDao.getResource()));
+        questionsService.conductTesting(context);
     }
 
 }

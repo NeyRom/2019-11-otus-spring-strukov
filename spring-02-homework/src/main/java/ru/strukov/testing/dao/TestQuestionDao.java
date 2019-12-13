@@ -1,6 +1,6 @@
 package ru.strukov.testing.dao;
 
-import org.springframework.core.io.Resource;
+import org.springframework.context.ApplicationContext;
 import ru.strukov.testing.domain.TestQuestion;
 
 import java.util.List;
@@ -10,6 +10,5 @@ import java.util.List;
  */
 
 public interface TestQuestionDao {
-    List<TestQuestion> getQuestions(Resource resource);
-    String getResource();
+    List<TestQuestion> getQuestions(ApplicationContext context, String pathComponent);
 }
