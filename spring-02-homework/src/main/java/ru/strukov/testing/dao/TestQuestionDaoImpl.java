@@ -3,9 +3,9 @@ package ru.strukov.testing.dao;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import ru.strukov.testing.domain.TestQuestion;
 import ru.strukov.testing.service.IOService;
@@ -26,20 +26,23 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
     private final String resourceName;
     private final String resourceExtension;
     private final IOService IOService;
+    private final ResourceLoader resourceLoader;
 
     @Autowired
     public TestQuestionDaoImpl(@Value("${resource.name}") String resourcePath,
                                @Value("${resource.extension}") String resourceExtension,
-                               IOService IOService) {
+                               IOService IOService,
+                               ResourceLoader resourceLoader) {
         this.resourceName = resourcePath;
         this.resourceExtension = resourceExtension;
         this.IOService = IOService;
+        this.resourceLoader = resourceLoader;
     }
 
     @Override
-    public List<TestQuestion> getQuestions(ApplicationContext context, String pathComponent) {
-        String resourcePath = resourceName + pathComponent + resourceExtension;
-        Resource resource = context.getResource(resourcePath);
+    public List<TestQuestion> getQuestions(String pathComponent) {
+        String resourcePath = "classpath:" + resourceName + pathComponent + resourceExtension;
+        Resource resource = resourceLoader.getResource(resourcePath);
         List<TestQuestion> questions = new ArrayList<>();
         try {
             InputStreamReader reader = new InputStreamReader(resource.getInputStream());

@@ -42,7 +42,9 @@ public class TestQuestionServiceImpl implements TestQuestionService {
 
     @Override
     public void conductTesting(ApplicationContext context) {
-        List<TestQuestion> questions = testQuestionDao.getQuestions(context, localeService.getPathComponent(locale));
+        setLocale(localeService.getUserLocale());
+        setStudent();
+        List<TestQuestion> questions = testQuestionDao.getQuestions(localeService.getPathComponent(locale));
         int questionsQuantity = questions.size();
         int questionNumber = 1;
         int rightAnswers = 0;

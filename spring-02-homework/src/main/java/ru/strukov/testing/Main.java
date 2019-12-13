@@ -1,8 +1,6 @@
 package ru.strukov.testing;
 
 import org.springframework.context.annotation.*;
-import ru.strukov.testing.config.MessageConfig;
-import ru.strukov.testing.service.LocaleService;
 import ru.strukov.testing.service.TestQuestionService;
 
 /**
@@ -10,7 +8,6 @@ import ru.strukov.testing.service.TestQuestionService;
  */
 
 @Configuration
-@Import(MessageConfig.class)
 @PropertySource("classpath:application.properties")
 @ComponentScan
 public class Main {
@@ -19,9 +16,6 @@ public class Main {
                 AnnotationConfigApplicationContext(Main.class);
 
         TestQuestionService questionsService = context.getBean(TestQuestionService.class);
-        LocaleService localeService = context.getBean(LocaleService.class);
-        questionsService.setLocale(localeService.getUserLocale());
-        questionsService.setStudent();
         questionsService.conductTesting(context);
     }
 
