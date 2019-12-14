@@ -9,7 +9,7 @@ import java.util.Locale;
  */
 
 public interface TestQuestionService {
-    void conductTesting(ApplicationContext context);
+    void conductTesting();
     void setStudent();
     void setLocale(Locale locale);
 }

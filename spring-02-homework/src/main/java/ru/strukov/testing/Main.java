@@ -16,7 +16,7 @@ public class Main {
                 AnnotationConfigApplicationContext(Main.class);
 
         TestQuestionService questionsService = context.getBean(TestQuestionService.class);
-        questionsService.conductTesting(context);
+        questionsService.conductTesting();
     }
 
 }

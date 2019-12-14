@@ -31,11 +31,11 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
     @Autowired
     public TestQuestionDaoImpl(@Value("${resource.name}") String resourcePath,
                                @Value("${resource.extension}") String resourceExtension,
-                               IOService IOService,
+                               IOService ioService,
                                ResourceLoader resourceLoader) {
         this.resourceName = resourcePath;
         this.resourceExtension = resourceExtension;
-        this.IOService = IOService;
+        this.IOService = ioService;
         this.resourceLoader = resourceLoader;
     }
 
