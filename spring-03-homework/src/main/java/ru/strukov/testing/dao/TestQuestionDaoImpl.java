@@ -3,7 +3,6 @@ package ru.strukov.testing.dao;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ import java.util.List;
  */
 
 @Service
-@Primary
 public class TestQuestionDaoImpl implements TestQuestionDao {
     private final String resourceName;
     private final String resourceExtension;
