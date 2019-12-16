@@ -6,3 +6,6 @@ spring-01-homework
  
  spring-02-homework
   - Задание на разработку системы тестирования студентов с конфигурацией  на Annotation + Java-based.
+  
+  spring-03-homework
+  - Задание на разработку системы тестирования студентов с помощью Spring Boot
