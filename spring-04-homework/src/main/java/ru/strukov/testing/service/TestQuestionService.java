@@ -1,5 +1,7 @@
 package ru.strukov.testing.service;
 
+import ru.strukov.testing.domain.Student;
+
 import java.util.Locale;
 
 /**
@@ -7,7 +9,5 @@ import java.util.Locale;
  */
 
 public interface TestQuestionService {
-    void conductTesting();
-    void setStudent();
-    void setLocale(Locale locale);
+    void conductTesting(Student student, Locale locale);
 }
