@@ -74,7 +74,8 @@ public class TestQuestionServiceImpl implements TestQuestionService {
                 new Object[] {studentService.getFullName(student)}, locale));
         ioService.printMessage(messageSource.getMessage("Testing.rightAnswersCaption",
                 new Object[] {rightAnswers, questionsQuantity}, locale));
-        ioService.printMessage(rightAnswers > questionsQuantity / 2 ? messageSource.getMessage("Testing.passed", null
-                , locale) : messageSource.getMessage("Testing.failed", null, locale));
+        ioService.printMessage(rightAnswers > questionsQuantity / 2
+                ? messageSource.getMessage("Testing.passed", null, locale)
+                : messageSource.getMessage("Testing.failed", null, locale));
     }
 }

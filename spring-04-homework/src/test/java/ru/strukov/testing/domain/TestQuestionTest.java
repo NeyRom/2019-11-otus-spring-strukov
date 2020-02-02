@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Created by Roman Strukov on 18.12.2019.
  */
-@DisplayName("Проверка класса TestQuestion")
+@DisplayName("Проверка сервиса TestQuestion")
 class TestQuestionTest {
     private TestQuestion testQuestion;
 
