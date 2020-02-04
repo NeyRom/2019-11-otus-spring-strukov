@@ -6,12 +6,12 @@
 
     <groupId>ru.strukov</groupId>
     <artifactId>spring-2019-11</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-01-homework</module>
         <module>spring-02-homework</module>
+        <module>spring-03-homework</module>
     </modules>
 </project>
