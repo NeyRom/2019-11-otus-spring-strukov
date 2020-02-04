@@ -9,9 +9,7 @@ import ru.strukov.testing.service.TestQuestionService;
 public class TestingApplication {
 
 	public static void main(String[] args) {
-		ApplicationContext context = SpringApplication.run(TestingApplication.class, args);
-		TestQuestionService questionService = context.getBean(TestQuestionService.class);
-		questionService.conductTesting();
+		SpringApplication.run(TestingApplication.class, args);
 	}
 
 }

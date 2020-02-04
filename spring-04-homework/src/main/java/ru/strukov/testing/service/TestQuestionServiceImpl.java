@@ -38,9 +38,9 @@ public class TestQuestionServiceImpl implements TestQuestionService {
     }
 
     @Override
-    public void conductTesting() {
-        setLocale(localeService.getUserLocale());
-        setStudent();
+    public void conductTesting(Student student, Locale locale) {
+        this.student = student;
+        this.locale = locale;
         List<TestQuestion> questions = testQuestionDao.getQuestions(localeService.getPathComponent(locale));
         int questionsQuantity = questions.size();
         int questionNumber = 1;
@@ -51,16 +51,6 @@ public class TestQuestionServiceImpl implements TestQuestionService {
             questionNumber++;
         }
         printTestResult(rightAnswers, questionsQuantity);
-    }
-
-    @Override
-    public void setStudent() {
-        student = studentService.setName(locale);
-    }
-
-    @Override
-    public void setLocale(Locale locale) {
-        this.locale = locale;
     }
 
     public int processQuestion(TestQuestion question, int questionNumber) {
@@ -84,7 +74,8 @@ public class TestQuestionServiceImpl implements TestQuestionService {
                 new Object[] {studentService.getFullName(student)}, locale));
         ioService.printMessage(messageSource.getMessage("Testing.rightAnswersCaption",
                 new Object[] {rightAnswers, questionsQuantity}, locale));
-        ioService.printMessage(rightAnswers > questionsQuantity / 2 ? messageSource.getMessage("Testing.passed", null
-                , locale) : messageSource.getMessage("Testing.failed", null, locale));
+        ioService.printMessage(rightAnswers > questionsQuantity / 2
+                ? messageSource.getMessage("Testing.passed", null, locale)
+                : messageSource.getMessage("Testing.failed", null, locale));
     }
 }

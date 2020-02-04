@@ -9,6 +9,6 @@ import java.util.Locale;
  */
 
 public interface StudentService {
-    Student setName(Locale locale);
+    Student setName(String firstName, String lastName);
     String getFullName(Student student);
 }
