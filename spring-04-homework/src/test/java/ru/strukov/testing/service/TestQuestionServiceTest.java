@@ -46,7 +46,7 @@ class TestQuestionServiceTest {
     @DisplayName("Корректно обрабатывается вопрос тестирования")
     @Test
     void shouldProcessQuestion() {
-        when(ioService.getInt()).thenReturn(2);
+        when(ioService.getInt()).thenReturn(1);
         int answer = testQuestionService.processQuestion(testQuestion, 3);
         assertThat(answer).isBetween(-1, 2);
     }
