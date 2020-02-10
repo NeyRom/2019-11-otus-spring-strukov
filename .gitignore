@@ -26,7 +26,6 @@ hs_err_pid*
 *.iws
 *.iml
 *.ip
-/spring-02-homework/target/
 /spring-02-homework/
 /spring-03-homework/
-/spring-04-homework/target/
+/spring-04-homework/
