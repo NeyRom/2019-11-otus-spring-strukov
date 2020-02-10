@@ -9,6 +9,7 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
+*.iml
 
 # Package Files #
 *.jar
@@ -23,3 +24,9 @@
 hs_err_pid*
 /2019-11-otus-spring-strukov.iml
 /.idea/
+/spring-02-homework/target/
+/spring-02-homework/.idea/
+/spring-03-homework/target/
+/spring-03-homework/.idea/
+/spring-04-homework/target/
+/spring-04-homework/.idea/
