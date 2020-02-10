@@ -5,12 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.strukov</groupId>
-    <artifactId>spring-01</artifactId>
-    <version>0.2</version>
+    <artifactId>spring-2019-11</artifactId>
+    <version>0.3</version>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-01-homework</module>
+        <module>spring-02-homework</module>
+        <module>spring-03-homework</module>
+        <module>spring-04-homework</module>
     </modules>
 </project>
