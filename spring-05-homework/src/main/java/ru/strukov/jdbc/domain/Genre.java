@@ -14,6 +14,11 @@ public class Genre {
         this.title = title.toLowerCase();
     }
 
+    public Genre(long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return String.format("Genre#%d - %s", id, title);
