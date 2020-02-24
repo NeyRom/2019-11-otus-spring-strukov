@@ -8,5 +8,5 @@ import java.util.List;
 public interface GenreDao {
     List<Genre> listAll();
     Genre getById(long id);
-    long insert(Genre genre);
+    Genre insert(Genre genre);
 }

@@ -3,9 +3,11 @@ package ru.strukov.jdbc.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 public class Author {
     @Getter @Setter
     private long id;
@@ -24,8 +26,8 @@ public class Author {
 
     @Override
     public String toString() {
-        return middleName == null ? String.format("%s %s", firstName, lastName) : String.format(
-                "%s. %s. %s", firstName.charAt(0), middleName.charAt(0), lastName
+        return middleName.equals("") ? String.format("%d - %s %s", id, firstName, lastName) : String.format(
+                "%d - %s. %s. %s", id, firstName.charAt(0), middleName.charAt(0), lastName
         );
     }
 }
