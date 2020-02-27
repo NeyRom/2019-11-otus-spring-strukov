@@ -18,16 +18,22 @@ public class Author {
     @Getter @Setter
     private String middleName;
 
-    public Author(long id, String firstName, String lastName) {
-        this.id = id;
+    public Author(String firstName, String lastName, String middleName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.middleName = middleName;
     }
 
     @Override
     public String toString() {
         return middleName.equals("") ? String.format("%d - %s %s", id, firstName, lastName) : String.format(
                 "%d - %s. %s. %s", id, firstName.charAt(0), middleName.charAt(0), lastName
+        );
+    }
+
+    public String getFullName() {
+        return middleName.equals("") ? String.format("%s %s", firstName, lastName) : String.format(
+                "%s. %s. %s", firstName.charAt(0), middleName.charAt(0), lastName
         );
     }
 }

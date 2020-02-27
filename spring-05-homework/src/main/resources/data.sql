@@ -9,6 +9,7 @@ INSERT INTO public.genres (id, title)
 	VALUES (4,'поэма');
 INSERT INTO public.genres (id, title)
 	VALUES (5,'комедия');
+SELECT setval('genres_id_seq', 5);
 
 -- Authors populating --
 INSERT INTO public.authors (id, first_name, last_name, middle_name)
@@ -19,6 +20,7 @@ INSERT INTO public.authors (id,first_name,last_name,middle_name)
 	VALUES (3,'Джеймс Фенимор','Купер','');
 INSERT INTO public.authors (id,first_name,last_name,middle_name)
 	VALUES (4,'Николай','Гоголь','Васильевич');
+SELECT setval('authors_id_seq', 4);
 
 -- Books populating --
 INSERT INTO public.books (title,isbn,release_date,author_id,genre_id)

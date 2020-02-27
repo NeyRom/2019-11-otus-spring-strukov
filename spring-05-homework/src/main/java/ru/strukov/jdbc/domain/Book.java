@@ -1,11 +1,15 @@
 package ru.strukov.jdbc.domain;
 /* Created by Roman Strukov in 11.02.2020 */
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     @Getter @Setter
@@ -17,11 +21,11 @@ public class Book {
     @Getter @Setter
     private LocalDate releaseDate;
     @Getter @Setter
-    private String author;
+    private Author author;
     @Getter @Setter
-    private String genre;
+    private Genre genre;
 
-    public Book(String title, String isbn, LocalDate releaseDate, String author, String genre) {
+    public Book(String title, String isbn, LocalDate releaseDate, Author author, Genre genre) {
         this.title = title;
         this.isbn = isbn;
         this.releaseDate = releaseDate;
@@ -36,8 +40,8 @@ public class Book {
 
     @Override
     public String toString() {
-        return String.format("Book#%d %s by %s in genre %s, %s, released %s",
-                id, title, author, genre, getIsbn(), releaseDate);
+        return String.format("Book#%d - %s by %s in genre %s, %s, released %s",
+                id, title, author.getFullName(), genre.getTitle(), getIsbn(), releaseDate);
     }
 
 
