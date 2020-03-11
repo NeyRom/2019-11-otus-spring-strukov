@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import ru.strukov.jdbc.domain.Book;
 import ru.strukov.jdbc.mapper.BookMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BookDaoJdbcImpl implements BookDao {
@@ -47,7 +49,9 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public String delete(long id) {
-        return null;
+    public void delete(long id) {
+        final Map<String, Long> params = new HashMap<>(1);
+        params.put("id", id);
+        jdbcOperations.update("delete from books where id = :id", params);
     }
 }

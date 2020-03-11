@@ -47,4 +47,10 @@ public class BookstoreServiceJdbcImpl implements BookstoreService {
         bookDao.listAll().forEach(book -> books.append(book).append("\n"));
         return books.toString();
     }
+
+    @Override
+    public String deleteBook(long id) {
+        bookDao.delete(id);
+        return "Удалена книга #" + id;
+    }
 }

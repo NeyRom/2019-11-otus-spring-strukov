@@ -6,4 +6,5 @@ public interface BookstoreService {
     String printAllAuthors();
     String createGenre(String title);
     String printAllBooks();
+    String deleteBook(long id);
 }

@@ -35,4 +35,9 @@ public class JdbcBookCommands {
     public String printBooks() {
         return bookstoreService.printAllBooks();
     }
+
+    @ShellMethod(value = "Delete book by Id", key = {"delete-book", "del"})
+    public String deleteBook(@ShellOption("--id") long id) {
+        return bookstoreService.deleteBook(id);
+    }
 }
