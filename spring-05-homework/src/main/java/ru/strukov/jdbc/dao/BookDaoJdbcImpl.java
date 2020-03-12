@@ -35,7 +35,12 @@ public class BookDaoJdbcImpl implements BookDao {
 
     @Override
     public Book getById(long id) {
-        return null;
+        final Map<String, Long> params = new HashMap<>(1);
+        params.put("id", id);
+        String query = "select b.id, b.title, isbn, release_date, a.first_name, a.last_name, a.middle_name, g.title " +
+                "from books b left join authors a on author_id = a.id left join genres g on genre_id = g.id where b" +
+                ".id = :id;";
+        return jdbcOperations.queryForObject(query, params, new BookMapper());
     }
 
     @Override
@@ -44,7 +49,13 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public Book update() {
+    public Book update(long id, Map<String, String> params) {
+        StringBuilder query = new StringBuilder("update books set ");
+        params.forEach((key, value) -> {
+            query.append(key).append(" = :").append(key).append(",");
+        });
+        query.deleteCharAt(query.length() - 1);
+        query.append(" where id = ").append(id).append(";");
         return null;
     }
 

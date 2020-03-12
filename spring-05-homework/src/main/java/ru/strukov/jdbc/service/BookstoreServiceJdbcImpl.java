@@ -8,6 +8,8 @@ import ru.strukov.jdbc.dao.BookDao;
 import ru.strukov.jdbc.dao.GenreDao;
 import ru.strukov.jdbc.domain.Genre;
 
+import java.util.Map;
+
 @Service
 public class BookstoreServiceJdbcImpl implements BookstoreService {
     private final GenreDao genreDao;
@@ -52,5 +54,16 @@ public class BookstoreServiceJdbcImpl implements BookstoreService {
     public String deleteBook(long id) {
         bookDao.delete(id);
         return "Удалена книга #" + id;
+    }
+
+    @Override
+    public String printBook(long id) {
+        return bookDao.getById(id).toString();
+    }
+
+    @Override
+    public String updateBook(long id, Map<String, String> params) {
+        bookDao.update(id, params);
+        return "Изменения внесены: " + bookDao.getById(id).toString();
     }
 }

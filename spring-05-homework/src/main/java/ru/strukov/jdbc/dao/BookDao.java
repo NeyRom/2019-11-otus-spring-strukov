@@ -4,11 +4,12 @@ package ru.strukov.jdbc.dao;
 import ru.strukov.jdbc.domain.Book;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookDao {
     List<Book> listAll();
     Book getById(long id);
     Book insert(Book book);
-    Book update();
+    Book update(long id, Map<String, String> params);
     void delete(long id);
 }

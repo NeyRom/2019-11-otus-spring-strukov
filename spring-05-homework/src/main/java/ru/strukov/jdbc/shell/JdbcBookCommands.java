@@ -7,6 +7,9 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import ru.strukov.jdbc.service.BookstoreService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @ShellComponent
 public class JdbcBookCommands {
     private final BookstoreService bookstoreService;
@@ -39,5 +42,22 @@ public class JdbcBookCommands {
     @ShellMethod(value = "Delete book by Id", key = {"delete-book", "del"})
     public String deleteBook(@ShellOption("--id") long id) {
         return bookstoreService.deleteBook(id);
+    }
+
+    @ShellMethod(value = "Print book by Id", key = {"book", "b"})
+    public String printBook(@ShellOption("--id") long id) {
+        return bookstoreService.printBook(id);
+    }
+
+    @ShellMethod(value = "Update selected book", key = {"update-book", "ub"})
+    public String updateBook(@ShellOption(value = "--id") long id,
+                             @ShellOption(value = {"-T", "--title"}, defaultValue = "") String title,
+                             @ShellOption(value = {"-I", "--isbn"}, defaultValue = "") String isbn,
+                             @ShellOption(value = {"-R", "--release"}, defaultValue = "") String releaseDate) {
+        Map<String, String> params = new HashMap<>();
+        if (!title.isEmpty()) {params.put("title", title);}
+        if (!isbn.isEmpty()) {params.put("isbn", isbn);}
+        if (!releaseDate.isEmpty()) {params.put("release_date", releaseDate);}
+        return bookstoreService.updateBook(id, params);
     }
 }
