@@ -49,14 +49,14 @@ public class BookDaoJdbcImpl implements BookDao {
     }
 
     @Override
-    public Book update(long id, Map<String, String> params) {
+    public void update(long id, Map<String, String> params) {
         StringBuilder query = new StringBuilder("update books set ");
         params.forEach((key, value) -> {
             query.append(key).append(" = :").append(key).append(",");
         });
         query.deleteCharAt(query.length() - 1);
         query.append(" where id = ").append(id).append(";");
-        return null;
+        jdbcOperations.update(query.toString(), params);
     }
 
     @Override

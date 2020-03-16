@@ -17,7 +17,6 @@ public class Book {
     private long id;
     @Getter @Setter
     private String title;
-    @Setter
     private String isbn;
     @Getter
     private LocalDate releaseDate;
@@ -37,6 +36,13 @@ public class Book {
     public String getIsbn() {
         return String.format("ISBN %s-%s-%s-%s-%s", isbn.substring(0, 3), isbn.substring(3, 4),
                 isbn.substring(4, 6), isbn.substring(6, 12), isbn.substring(12, 13));
+    }
+
+    public void setIsbn(String isbn) {
+        if (isbn.length() < 13) {
+            isbn += "0".repeat(13 - isbn.length());
+        }
+        this.isbn = isbn;
     }
 
     public void setReleaseDate(String releaseDate) throws DateTimeParseException {

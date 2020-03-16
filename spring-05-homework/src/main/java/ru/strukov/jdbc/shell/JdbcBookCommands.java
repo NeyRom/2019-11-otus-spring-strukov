@@ -19,12 +19,12 @@ public class JdbcBookCommands {
         this.bookstoreService = bookstoreService;
     }
 
-    @ShellMethod(value = "Print all genres from bookstore", key = {"print-genres", "pg"})
+    @ShellMethod(value = "List all genres from bookstore", key = {"list-genres", "lsg"})
     public String printGenres() {
         return bookstoreService.printAllGenres();
     }
 
-    @ShellMethod(value = "Print all authors from bookstore", key = {"print-authors", "pa"})
+    @ShellMethod(value = "List all authors from bookstore", key = {"list-authors", "lsa"})
     public String printAuthors() {
         return bookstoreService.printAllAuthors();
     }
@@ -34,7 +34,7 @@ public class JdbcBookCommands {
         return bookstoreService.createGenre(title);
     }
 
-    @ShellMethod(value = "Print all books from bookstore", key = {"print-books", "pb"})
+    @ShellMethod(value = "List all books from bookstore", key = {"list-books", "lsb"})
     public String printBooks() {
         return bookstoreService.printAllBooks();
     }
@@ -44,12 +44,12 @@ public class JdbcBookCommands {
         return bookstoreService.deleteBook(id);
     }
 
-    @ShellMethod(value = "Print book by Id", key = {"book", "b"})
+    @ShellMethod(value = "List book by Id", key = {"book", "b"})
     public String printBook(@ShellOption("--id") long id) {
         return bookstoreService.printBook(id);
     }
 
-    @ShellMethod(value = "Update selected book", key = {"update-book", "ub"})
+    @ShellMethod(value = "Update selected book", key = {"update-book", "upb"})
     public String updateBook(@ShellOption(value = "--id") long id,
                              @ShellOption(value = {"-T", "--title"}, defaultValue = "") String title,
                              @ShellOption(value = {"-I", "--isbn"}, defaultValue = "") String isbn,

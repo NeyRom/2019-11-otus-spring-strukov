@@ -10,6 +10,6 @@ public interface BookDao {
     List<Book> listAll();
     Book getById(long id);
     Book insert(Book book);
-    Book update(long id, Map<String, String> params);
+    void update(long id, Map<String, String> params);
     void delete(long id);
 }
