@@ -62,8 +62,13 @@ public class BookstoreServiceJdbcImpl implements BookstoreService {
     }
 
     @Override
-    public String updateBook(long id, Map<String, String> params) {
+    public String updateBook(long id, Map<String, Object> params) {
         bookDao.update(id, params);
         return "Изменения внесены: " + bookDao.getById(id).toString();
+    }
+
+    @Override
+    public String insertBook(Map<String, Object> params) {
+        return "Добавлена книга: " + bookDao.insert(params).toString();
     }
 }
