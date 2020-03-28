@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,5 +60,21 @@ public class Book {
                 id, title, author.getFullName(), genre.getTitle(), getIsbn(), releaseDate);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
+        Book book = (Book) o;
+        return getId() == book.getId() &&
+                Objects.equals(getTitle(), book.getTitle()) &&
+                Objects.equals(getIsbn(), book.getIsbn()) &&
+                Objects.equals(getReleaseDate(), book.getReleaseDate()) &&
+                Objects.equals(getAuthor(), book.getAuthor()) &&
+                Objects.equals(getGenre(), book.getGenre());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getIsbn(), getReleaseDate(), getAuthor(), getGenre());
+    }
 }

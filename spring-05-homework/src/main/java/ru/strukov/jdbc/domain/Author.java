@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class Author {
@@ -35,5 +37,21 @@ public class Author {
         return middleName.equals("") ? String.format("%s %s", firstName, lastName) : String.format(
                 "%s. %s. %s", firstName.charAt(0), middleName.charAt(0), lastName
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author)) return false;
+        Author author = (Author) o;
+        return getId() == author.getId() &&
+                getFirstName().equals(author.getFirstName()) &&
+                getLastName().equals(author.getLastName()) &&
+                Objects.equals(getMiddleName(), author.getMiddleName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName(), getMiddleName());
     }
 }

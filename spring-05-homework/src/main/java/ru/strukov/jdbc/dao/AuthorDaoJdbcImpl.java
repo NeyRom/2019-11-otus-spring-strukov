@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import ru.strukov.jdbc.domain.Author;
 import ru.strukov.jdbc.mapper.AuthorMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AuthorDaoJdbcImpl implements AuthorDao {
@@ -34,7 +36,10 @@ public class AuthorDaoJdbcImpl implements AuthorDao {
 
     @Override
     public Author getById(long id) {
-        return null;
+        final Map<String, Long> params = new HashMap<>(1);
+        params.put("id", id);
+        String query = "select id, first_name, last_name, middle_name from authors where id = :id";
+        return jdbcOperations.queryForObject(query, params, new AuthorMapper());
     }
 
     @Override

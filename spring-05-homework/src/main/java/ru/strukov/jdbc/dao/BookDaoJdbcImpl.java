@@ -28,7 +28,8 @@ public class BookDaoJdbcImpl implements BookDao {
 
     @Override
     public List<Book> listAll() {
-        String query = "select b.id, b.title, isbn, release_date, a.first_name, a.last_name, a.middle_name, g.title " +
+        String query = "select b.id, b.title, isbn, release_date, a.first_name, a.last_name, a.middle_name, g.title, " +
+                "g.id, a.id " +
                 "from books b left join authors a on author_id = a.id left join genres g on genre_id = g.id order by b.id;";
         return jdbcOperations.query(query, new BookMapper());
     }
@@ -37,7 +38,8 @@ public class BookDaoJdbcImpl implements BookDao {
     public Book getById(long id) {
         final Map<String, Long> params = new HashMap<>(1);
         params.put("id", id);
-        String query = "select b.id, b.title, isbn, release_date, a.first_name, a.last_name, a.middle_name, g.title " +
+        String query = "select b.id, b.title, isbn, release_date, a.first_name, a.last_name, a.middle_name, g.title, " +
+                "g.id, a.id " +
                 "from books b left join authors a on author_id = a.id left join genres g on genre_id = g.id where b" +
                 ".id = :id;";
         return jdbcOperations.queryForObject(query, params, new BookMapper());
@@ -64,4 +66,5 @@ public class BookDaoJdbcImpl implements BookDao {
         params.put("id", id);
         jdbcOperations.update("delete from books where id = :id", params);
     }
+
 }

@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /* Created by Roman Strukov in 16.03.2020 */
 
@@ -20,7 +21,7 @@ class BookTest {
         book = new Book();
     }
 
-    @DisplayName("Корректно обрабатывает введеный ISBN, дополняя до 13 символов")
+    @DisplayName("корректно обрабатывает введеный ISBN, дополняя до 13 символов")
     @Test
     void shouldSetIsbn() {
         book.setIsbn("1234567");
@@ -30,7 +31,7 @@ class BookTest {
                 .hasSize(13 + 9);
     }
 
-    @DisplayName("Корректно обрабатывает введеную дату верного формата")
+    @DisplayName("корректно обрабатывает введеную дату верного формата")
     @Test
     void shouldSetReleaseDateFromString() {
         book.setReleaseDate("2018-04-14");
@@ -38,7 +39,7 @@ class BookTest {
                 .isEqualTo(LocalDate.of(2018, 4, 14));
     }
 
-    @DisplayName("Бросает исключение DateTimeParseException если дата неверного формата")
+    @DisplayName("бросает исключение DateTimeParseException если дата неверного формата")
     @Test
     void shouldThrowExceptionWithReleaseDate() {
         assertThatThrownBy(() -> book.setReleaseDate("2015.4.14"))

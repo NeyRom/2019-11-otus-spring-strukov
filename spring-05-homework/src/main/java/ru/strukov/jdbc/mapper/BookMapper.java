@@ -18,11 +18,13 @@ public class BookMapper implements RowMapper<Book> {
         book.setIsbn(resultSet.getString("isbn"));
         book.setReleaseDate(resultSet.getDate("release_date").toLocalDate());
         book.setAuthor(new Author(
+                resultSet.getLong(10),
                 resultSet.getString("first_name"),
                 resultSet.getString("last_name"),
                 resultSet.getString("middle_name")
         ));
         book.setGenre(new Genre(
+                resultSet.getLong(9),
                 resultSet.getString(8)
         ));
         return book;

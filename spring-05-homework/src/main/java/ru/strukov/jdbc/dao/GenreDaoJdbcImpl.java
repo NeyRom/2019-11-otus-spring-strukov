@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import ru.strukov.jdbc.domain.Genre;
 import ru.strukov.jdbc.mapper.GenreMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class GenreDaoJdbcImpl implements GenreDao {
@@ -34,7 +36,10 @@ public class GenreDaoJdbcImpl implements GenreDao {
 
     @Override
     public Genre getById(long id) {
-        return null;
+        final Map<String, Long> params = new HashMap<>(1);
+        params.put("id", id);
+        String query = "select id, title from genres where id = :id";
+        return jdbcOperations.queryForObject(query, params, new GenreMapper());
     }
 
     @Override
