@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/books
+    platform: postgres
+    username: bookstore
+    password: example
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    schema: schema.sql
+    data: data.sql
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+logging:
+  level:
+    ROOT: warn
