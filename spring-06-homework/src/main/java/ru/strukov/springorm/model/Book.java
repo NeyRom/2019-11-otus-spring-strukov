@@ -6,24 +6,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "books")
 public class Book {
-    @Getter @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Getter @Setter
+    @Column(name = "title")
     private String title;
-    @Getter @Setter
+    @Column(name = "isbn")
     private String isbn;
-    @Getter
+    @Column(name = "release_date")
     private LocalDate releaseDate;
-    @Getter @Setter
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private Author author;
-    @Getter @Setter
+    @ManyToOne
+    @JoinColumn(name = "genre_id")
     private Genre genre;
+    @OneToMany(targetEntity = Comment.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private List<Comment> comments;
 
     public String getIsbnForPrint() {
         return String.format("ISBN %s-%s-%s-%s-%s", isbn.substring(0, 3), isbn.substring(3, 4),
@@ -35,14 +46,6 @@ public class Book {
             isbn += "0".repeat(13 - isbn.length());
         }
         this.isbn = isbn;
-    }
-
-    public void setReleaseDate(String releaseDate) throws DateTimeParseException {
-        this.releaseDate = LocalDate.parse(releaseDate);
-    }
-
-    public void setReleaseDate(LocalDate releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
     @Override
