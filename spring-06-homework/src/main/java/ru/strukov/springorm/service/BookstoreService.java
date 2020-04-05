@@ -5,11 +5,13 @@ import java.util.Map;
 
 public interface BookstoreService {
     String printAllGenres();
+    String printGenreById(long id);
     String printAllAuthors();
-    String createGenre(String title);
+    String printAuthorById(long id);
     String printAllBooks();
     String deleteBook(long id);
-    String printBook(long id);
+    String printBookById(long id);
     String updateBook(long id, Map<String, Object> params);
-    String insertBook(Map<String, Object> params);
+    String addBook(Map<String, Object> params);
+    String insertComment(String content, long id);
 }

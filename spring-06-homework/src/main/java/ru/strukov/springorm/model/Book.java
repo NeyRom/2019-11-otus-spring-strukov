@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,9 +32,6 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
-    @OneToMany(targetEntity = Comment.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    private List<Comment> comments;
 
     public String getIsbnForPrint() {
         return String.format("ISBN %s-%s-%s-%s-%s", isbn.substring(0, 3), isbn.substring(3, 4),
@@ -52,5 +49,23 @@ public class Book {
     public String toString() {
         return String.format("Book#%d - %s by %s in genre %s, %s, released %s",
                 id, title, author.getFullName(), genre.getTitle(), getIsbnForPrint(), releaseDate);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book)) return false;
+        Book book = (Book) o;
+        return getId() == book.getId() &&
+                Objects.equals(getTitle(), book.getTitle()) &&
+                Objects.equals(getIsbn(), book.getIsbn()) &&
+                Objects.equals(getReleaseDate(), book.getReleaseDate()) &&
+                Objects.equals(getAuthor(), book.getAuthor()) &&
+                Objects.equals(getGenre(), book.getGenre());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getIsbn(), getReleaseDate(), getAuthor(), getGenre());
     }
 }
