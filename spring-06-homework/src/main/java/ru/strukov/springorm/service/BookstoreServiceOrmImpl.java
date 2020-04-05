@@ -95,11 +95,10 @@ public class BookstoreServiceOrmImpl implements BookstoreService {
     @Override
     public String updateBook(long id, Map<String, Object> params) {
         Optional<Book> book = bookRepository.findById(id);
-        if (book.isPresent()) {
-            bookRepository.update(fillBookFields(book.get(), params));
-            return "Книга обновлена";
-        } else
-            return "Книга не найдена";
+        return book.map(value -> bookRepository.update(fillBookFields(value, params))
+                ? "Книга обновлена"
+                : "Обновление не удалось")
+                   .orElse("Книга не найдена");
     }
 
     @Override

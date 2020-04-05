@@ -39,12 +39,12 @@ public class Comment {
         if (this == o) return true;
         if (!(o instanceof Comment)) return false;
         Comment comment = (Comment) o;
-        return getId() == comment.getId() &&
+        return getBookId() == comment.getBookId() &&
                 Objects.equals(getContent(), comment.getContent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getContent());
+        return Objects.hash(getContent(), getBookId());
     }
 }
