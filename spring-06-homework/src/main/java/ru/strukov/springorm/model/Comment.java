@@ -21,17 +21,18 @@ public class Comment {
     private long id;
     @Column(name = "content")
     private String content;
-    @Column(name = "book_id")
-    private long bookId;
+    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
     @Override
     public String toString() {
         return content + System.lineSeparator();
     }
 
-    public Comment(String content, long bookId) {
+    public Comment(String content, Book book) {
         this.content = content;
-        this.bookId = bookId;
+        this.book = book;
     }
 
     @Override
@@ -39,12 +40,13 @@ public class Comment {
         if (this == o) return true;
         if (!(o instanceof Comment)) return false;
         Comment comment = (Comment) o;
-        return getBookId() == comment.getBookId() &&
-                Objects.equals(getContent(), comment.getContent());
+        return getId() == comment.getId() &&
+                getContent().equals(comment.getContent()) &&
+                Objects.equals(getBook(), comment.getBook());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getContent(), getBookId());
+        return Objects.hash(getContent(), getBook());
     }
 }

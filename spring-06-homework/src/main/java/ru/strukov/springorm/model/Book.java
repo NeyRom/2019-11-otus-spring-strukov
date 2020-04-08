@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -32,23 +35,17 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
+    @OneToMany(targetEntity = Comment.class, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    @JoinColumn(name = "book_id")
+    private List<Comment> comments;
 
-    public String getIsbnForPrint() {
-        return String.format("ISBN %s-%s-%s-%s-%s", isbn.substring(0, 3), isbn.substring(3, 4),
-                isbn.substring(4, 6), isbn.substring(6, 12), isbn.substring(12, 13));
-    }
 
     public void setIsbnFromString(String isbn) {
         if (isbn.length() < 13) {
             isbn += "0".repeat(13 - isbn.length());
         }
         this.isbn = isbn;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Book#%d - %s by %s in genre %s, %s, released %s",
-                id, title, author.getFullName(), genre.getTitle(), getIsbnForPrint(), releaseDate);
     }
 
     @Override

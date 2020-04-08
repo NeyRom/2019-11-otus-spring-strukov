@@ -3,9 +3,6 @@ package ru.strukov.springorm.repository;
 
 import ru.strukov.springorm.model.Comment;
 
-import java.util.List;
-
 public interface CommentRepository {
-    List<Comment> findAllByBookId(long bookId);
     void insert(Comment comment);
 }

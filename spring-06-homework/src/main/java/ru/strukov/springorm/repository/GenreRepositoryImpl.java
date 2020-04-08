@@ -2,7 +2,6 @@ package ru.strukov.springorm.repository;
 /* Created by Roman Strukov in 30.03.2020 */
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.strukov.springorm.model.Genre;
 
 import javax.persistence.EntityManager;
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class GenreRepositoryImpl implements GenreRepository {
 
     @PersistenceContext

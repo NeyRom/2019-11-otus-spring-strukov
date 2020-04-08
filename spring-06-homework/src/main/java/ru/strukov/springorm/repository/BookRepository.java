@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface BookRepository {
     List<Book> findAll();
     Optional<Book> findById(long id);
-    Book insert(Book book);
-    boolean update(Book book);
-    boolean delete(long id);
+    void insert(Book book);
+    void update(Book book);
+    void delete(long id);
 }

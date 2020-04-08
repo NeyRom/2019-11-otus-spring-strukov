@@ -9,9 +9,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.strukov.springorm.model.Author;
 import ru.strukov.springorm.model.Book;
+import ru.strukov.springorm.model.Comment;
 import ru.strukov.springorm.model.Genre;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,13 +35,15 @@ class BookRepositoryImplTest {
     void setUp() {
         Genre genre = new Genre(2, "приключения");
         Author author = new Author(3, "Джеймс Фенимор","Купер", "");
+        List<Comment> comments = new ArrayList<>();
         sameBook = new Book(
                 3,
                 "Последний из могикан",
                 "9785171202736",
                 LocalDate.parse("2020-01-18"),
                 author,
-                genre
+                genre,
+                comments
         );
         anotherBook = new Book(
                 6,
@@ -46,7 +51,8 @@ class BookRepositoryImplTest {
                 "9785171475663",
                 LocalDate.parse("2015-04-21"),
                 author,
-                genre
+                genre,
+                comments
         );
     }
 
@@ -71,17 +77,17 @@ class BookRepositoryImplTest {
 
     @Test
     @DisplayName("добавляет новую книгу")
-    void insert() {
+    void shouldInsertBook() {
         anotherBook.setId(0);
-        Book book = bookRepository.insert(anotherBook);
+        bookRepository.insert(anotherBook);
         assertThat(bookRepository.findAll())
                 .hasSize(6)
-                .contains(book);
+                .contains(anotherBook);
     }
 
     @Test
     @DisplayName("изменяет книгу по id")
-    void update() {
+    void shouldUpdateBook() {
         sameBook.setTitle("Вождь краснокожих");
         bookRepository.update(sameBook);
         val updatedBook = bookRepository.findById(sameBook.getId());
@@ -89,14 +95,12 @@ class BookRepositoryImplTest {
                 .isPresent()
                 .get()
                 .isEqualTo(sameBook);
-
     }
 
     @Test
     @DisplayName("удаляет книгу по id")
-    void delete() {
-        assertThat(bookRepository.delete(3))
-                .isEqualTo(true);
+    void shouldDeleteBook() {
+        bookRepository.delete(3);
         assertThat(bookRepository.findById(3))
                 .isNotPresent();
     }

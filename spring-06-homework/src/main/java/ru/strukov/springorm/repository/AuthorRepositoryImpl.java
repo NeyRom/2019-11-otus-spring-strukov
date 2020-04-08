@@ -7,12 +7,10 @@ import ru.strukov.springorm.model.Author;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class AuthorRepositoryImpl implements AuthorRepository {
 
     @PersistenceContext

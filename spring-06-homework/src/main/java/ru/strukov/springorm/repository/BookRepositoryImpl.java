@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class BookRepositoryImpl implements BookRepository {
 
     @PersistenceContext
@@ -21,8 +20,7 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public List<Book> findAll() {
         TypedQuery<Book> query = entityManager.createQuery(
-                "select b from Book b join fetch b.author join fetch b.genre",
-                Book.class);
+                "select b from Book b join fetch b.author join fetch b.genre", Book.class);
         return query.getResultList();
     }
 
@@ -32,29 +30,21 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Book insert(Book book) {
+    @Transactional
+    public void insert(Book book) throws IllegalArgumentException {
         entityManager.persist(book);
-        return book;
     }
 
     @Override
-    public boolean update(Book book) {
-        Optional<Book> savedBook = findById(book.getId());
-        if (savedBook.isPresent()) {
-            if (book.getTitle() != null) savedBook.get().setTitle(book.getTitle());
-            if (book.getIsbn() != null) savedBook.get().setIsbn(book.getIsbn());
-            if (book.getReleaseDate() != null) savedBook.get().setReleaseDate(book.getReleaseDate());
-            entityManager.merge(savedBook.get());
-            return true;
-        } else return false;
+    @Transactional
+    public void update(Book book) throws IllegalArgumentException {
+        entityManager.merge(book);
     }
 
     @Override
-    public boolean delete(long id) {
+    @Transactional
+    public void delete(long id) throws IllegalArgumentException {
         Optional<Book> book = findById(id);
-        if (book.isPresent()) {
-            entityManager.remove(book.get());
-            return true;
-        } else return false;
+        book.ifPresent(value -> entityManager.remove(value));
     }
 }

@@ -27,19 +27,6 @@ public class Author {
     private String middleName;
 
     @Override
-    public String toString() {
-        return middleName.equals("") ? String.format("%d - %s %s", id, firstName, lastName) : String.format(
-                "%d - %s. %s. %s", id, firstName.charAt(0), middleName.charAt(0), lastName
-        );
-    }
-
-    public String getFullName() {
-        return middleName.equals("") ? String.format("%s %s", firstName, lastName) : String.format(
-                "%s. %s. %s", firstName.charAt(0), middleName.charAt(0), lastName
-        );
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Author)) return false;

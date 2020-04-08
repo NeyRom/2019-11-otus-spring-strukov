@@ -27,11 +27,6 @@ public class Genre {
     }
 
     @Override
-    public String toString() {
-        return String.format("%d - %s", id, title);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Genre)) return false;
