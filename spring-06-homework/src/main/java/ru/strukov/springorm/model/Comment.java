@@ -25,11 +25,6 @@ public class Comment {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
-    @Override
-    public String toString() {
-        return content + System.lineSeparator();
-    }
-
     public Comment(String content, Book book) {
         this.content = content;
         this.book = book;

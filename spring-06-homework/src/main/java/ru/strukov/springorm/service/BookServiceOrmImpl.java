@@ -47,9 +47,23 @@ public class BookServiceOrmImpl implements BookService {
         return book.map(value -> {
             if (!value.getComments().isEmpty())
                 commentsText.append(System.lineSeparator()).append("Комментарии").append(System.lineSeparator());
-            value.getComments().forEach(commentsText::append);
+            value.getComments()
+                 .forEach(comment -> commentsText.append(comment.getContent()).append(System.lineSeparator()));
             return print(value) + commentsText.toString();
         }).orElse("Книга не найдена");
+    }
+
+    @Override
+    public String printBooksByAuthor(long authorId) {
+        Optional<Author> author = authorRepository.findById(authorId);
+        return author.map(value -> {
+            StringBuilder books =
+                    new StringBuilder("Книги автора ").append(printAuthor(value))
+                                                      .append(":").append(System.lineSeparator());
+            bookRepository.findAllByAuthor(value.getId())
+                         .forEach(book -> books.append(print(book)).append(System.lineSeparator()));
+            return books.toString();
+        }).orElse("Автор не найден");
     }
 
     @Override

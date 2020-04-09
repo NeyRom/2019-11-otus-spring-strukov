@@ -4,6 +4,7 @@ package ru.strukov.springorm.service;
 public interface BookService {
     String printAllBooks();
     String printBookById(long id);
+    String printBooksByAuthor(long author);
     String addBook(String title, String isbn, String releaseDate, long author, long genre);
     String updateBook(long id, String title, String isbn, String releaseDate);
     String deleteBook(long id);

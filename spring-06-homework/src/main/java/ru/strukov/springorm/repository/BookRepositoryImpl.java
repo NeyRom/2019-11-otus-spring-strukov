@@ -30,6 +30,14 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
+    public List<Book> findAllByAuthor(long author) {
+        TypedQuery<Book> query = entityManager.createQuery(
+                "select b from Book b join fetch b.author join fetch b.genre where b.author.id = :id", Book.class);
+        query.setParameter("id", author);
+        return query.getResultList();
+    }
+
+    @Override
     @Transactional
     public void insert(Book book) throws IllegalArgumentException {
         entityManager.persist(book);

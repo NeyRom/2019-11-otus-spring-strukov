@@ -31,6 +31,8 @@ INSERT INTO books (title,isbn,release_date,author_id,genre_id)
 	VALUES ('Мёртвые души','9785170878895','2015-03-15',4,4);
 INSERT INTO books (title,isbn,release_date,author_id,genre_id)
 	VALUES ('Ревизор','9785926827436','2018-10-06',4,5);
+INSERT INTO books (title,isbn,release_date,author_id,genre_id)
+	VALUES ('Капитанская дочка','9785080057205','2017-08-07',1,1);
 	
 -- Comments populating --
 INSERT INTO comments (content,book_id)

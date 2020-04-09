@@ -46,7 +46,7 @@ class BookRepositoryImplTest {
                 comments
         );
         anotherBook = new Book(
-                6,
+                7,
                 "Следопыт",
                 "9785171475663",
                 LocalDate.parse("2015-04-21"),
@@ -60,7 +60,7 @@ class BookRepositoryImplTest {
     @DisplayName("возвращает весь список книг")
     void shouldFindAllBooks() {
         assertThat(bookRepository.findAll())
-                .hasSize(5)
+                .hasSize(6)
                 .contains(sameBook)
                 .doesNotContain(anotherBook);
     }
@@ -76,12 +76,21 @@ class BookRepositoryImplTest {
     }
 
     @Test
+    @DisplayName("возвращает книги по id автора")
+    void shouldFindBookByAuthor() {
+        val book = bookRepository.findAllByAuthor(3);
+        assertThat(book)
+                .hasSize(1)
+                .contains(sameBook);
+    }
+
+    @Test
     @DisplayName("добавляет новую книгу")
     void shouldInsertBook() {
         anotherBook.setId(0);
         bookRepository.insert(anotherBook);
         assertThat(bookRepository.findAll())
-                .hasSize(6)
+                .hasSize(7)
                 .contains(anotherBook);
     }
 
