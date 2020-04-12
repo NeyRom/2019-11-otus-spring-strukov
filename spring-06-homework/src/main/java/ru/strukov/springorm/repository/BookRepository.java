@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface BookRepository {
     List<Book> findAll();
     Optional<Book> findById(long id);
-    List<Book> findAllByAuthor(long author);
     void insert(Book book);
     void update(Book book);
     void delete(long id);

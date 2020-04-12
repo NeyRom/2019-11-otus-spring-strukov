@@ -12,29 +12,40 @@ import java.util.Optional;
 public class AuthorServiceOrmImpl implements AuthorService {
     
     private final AuthorRepository repository;
+    private final PrintService printService;
 
     @Autowired
-    public AuthorServiceOrmImpl(AuthorRepository repository) {
+    public AuthorServiceOrmImpl(AuthorRepository repository,
+                                PrintService printService) {
         this.repository = repository;
+        this.printService = printService;
     }
 
     @Override
     public String printAllAuthors() {
         StringBuilder authors = new StringBuilder("Авторы:").append(System.lineSeparator());
-        repository.findAll().forEach(author -> authors.append(print(author)).append(System.lineSeparator()));
+        repository.findAll().forEach(author -> authors.append(printService.printAuthor(author))
+                                                      .append(System.lineSeparator()));
         return authors.toString();
     }
 
     @Override
     public String printAuthorById(long id) {
         Optional<Author> author = repository.findById(id);
-        return author.map(value -> "Автор #" + print(value)).orElse("Автор не найден");
+        return author.map(value -> "Автор #" + printService.printAuthor(value))
+                     .orElse("Автор не найден");
     }
 
-    public String print(Author author) {
-        return author.getMiddleName().equals("")
-                ? String.format("%d - %s %s", author.getId(), author.getFirstName(), author.getLastName())
-                : String.format("%d - %s. %s. %s", author.getId(), author.getFirstName().charAt(0),
-                author.getMiddleName().charAt(0), author.getLastName());
+    @Override
+    public String printBooksByAuthor(long id) {
+        Optional<Author> author = repository.findById(id);
+        return author.map(value -> {
+            StringBuilder books =
+                    new StringBuilder("Книги автора ").append(printService.printAuthor(value))
+                                                      .append(":").append(System.lineSeparator());
+            value.getBooks().forEach(book -> books.append(printService.printBook(book))
+                                                  .append(System.lineSeparator()));
+            return books.toString();
+        }).orElse("Автор не найден");
     }
 }

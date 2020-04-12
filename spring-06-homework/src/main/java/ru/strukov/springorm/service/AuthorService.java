@@ -4,4 +4,5 @@ package ru.strukov.springorm.service;
 public interface AuthorService {
     String printAllAuthors();
     String printAuthorById(long id);
+    String printBooksByAuthor(long id);
 }

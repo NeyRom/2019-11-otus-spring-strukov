@@ -41,7 +41,7 @@ public class OrmBookCommands {
 
     @ShellMethod(value = "List all books by selected author", key = {"lsba"})
     public String printBooksByAuthor(@ShellOption(defaultValue = "0") long author) {
-        return bookService.printBooksByAuthor(author);
+        return authorService.printBooksByAuthor(author);
     }
 
     @ShellMethod(value = "Insert new book", key = {"add-book", "adb"})

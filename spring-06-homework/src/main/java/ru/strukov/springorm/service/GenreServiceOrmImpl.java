@@ -12,26 +12,27 @@ import java.util.Optional;
 public class GenreServiceOrmImpl implements GenreService {
 
     private final GenreRepository repository;
+    private final PrintService printService;
 
     @Autowired
-    public GenreServiceOrmImpl(GenreRepository repository) {
+    public GenreServiceOrmImpl(GenreRepository repository, PrintService printService) {
         this.repository = repository;
+        this.printService = printService;
     }
 
     @Override
     public String printAllGenres() {
         StringBuilder genres = new StringBuilder("Список жанров:").append(System.lineSeparator());
-        repository.findAll().forEach(genre -> genres.append(print(genre)).append(System.lineSeparator()));
+        repository.findAll().forEach(genre -> genres.append(printService.printGenre(genre))
+                                                    .append(System.lineSeparator()));
         return genres.toString();
     }
 
     @Override
     public String printGenreById(long id) {
         Optional<Genre> genre = repository.findById(id);
-        return genre.map(value -> "Жанр #" + print(value)).orElse("Жанр не найден");
+        return genre.map(value -> "Жанр #" + printService.printGenre(value))
+                    .orElse("Жанр не найден");
     }
 
-    private String print(Genre genre) {
-        return String.format("%d - %s", genre.getId(), genre.getTitle());
-    }
 }

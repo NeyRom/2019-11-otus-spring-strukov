@@ -3,7 +3,6 @@ package ru.strukov.springorm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.strukov.springorm.model.Author;
 import ru.strukov.springorm.model.Book;
 import ru.strukov.springorm.model.Comment;
 import ru.strukov.springorm.repository.AuthorRepository;
@@ -21,22 +20,26 @@ public class BookServiceOrmImpl implements BookService {
     private final AuthorRepository authorRepository;
     private final GenreRepository genreRepository;
     private final CommentRepository commentRepository;
+    private final PrintService printService;
 
     @Autowired
     public BookServiceOrmImpl(BookRepository bookRepository,
                               AuthorRepository authorRepository,
                               GenreRepository genreRepository,
-                              CommentRepository commentRepository) {
+                              CommentRepository commentRepository,
+                              PrintService printService) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.genreRepository = genreRepository;
         this.commentRepository = commentRepository;
+        this.printService = printService;
     }
 
     @Override
     public String printAllBooks() {
         StringBuilder books = new StringBuilder("Книги:").append(System.lineSeparator());
-        bookRepository.findAll().forEach(book -> books.append(print(book)).append(System.lineSeparator()));
+        bookRepository.findAll().forEach(book -> books.append(printService.printBook(book))
+                                                      .append(System.lineSeparator()));
         return books.toString();
     }
 
@@ -49,21 +52,8 @@ public class BookServiceOrmImpl implements BookService {
                 commentsText.append(System.lineSeparator()).append("Комментарии").append(System.lineSeparator());
             value.getComments()
                  .forEach(comment -> commentsText.append(comment.getContent()).append(System.lineSeparator()));
-            return print(value) + commentsText.toString();
+            return printService.printBook(value) + commentsText.toString();
         }).orElse("Книга не найдена");
-    }
-
-    @Override
-    public String printBooksByAuthor(long authorId) {
-        Optional<Author> author = authorRepository.findById(authorId);
-        return author.map(value -> {
-            StringBuilder books =
-                    new StringBuilder("Книги автора ").append(printAuthor(value))
-                                                      .append(":").append(System.lineSeparator());
-            bookRepository.findAllByAuthor(value.getId())
-                         .forEach(book -> books.append(print(book)).append(System.lineSeparator()));
-            return books.toString();
-        }).orElse("Автор не найден");
     }
 
     @Override
@@ -122,23 +112,5 @@ public class BookServiceOrmImpl implements BookService {
         } catch (IllegalArgumentException e) {
             return "Произошла ошибка: " + e.getMessage();
         }
-    }
-
-    public String printIsbn(String isbn) {
-        return String.format("ISBN %s-%s-%s-%s-%s", isbn.substring(0, 3), isbn.substring(3, 4),
-                isbn.substring(4, 6), isbn.substring(6, 12), isbn.substring(12, 13));
-    }
-
-    public String print(Book book) {
-        return String.format("Book#%d - %s by %s in genre %s, %s, released %s",
-                book.getId(), book.getTitle(), printAuthor(book.getAuthor()), book.getGenre().getTitle(),
-                printIsbn(book.getIsbn()), book.getReleaseDate());
-    }
-
-    public String printAuthor(Author author) {
-        return author.getMiddleName().equals("")
-                ? String.format("%s %s", author.getFirstName(), author.getLastName())
-                : String.format("%s. %s. %s", author.getFirstName().charAt(0),
-                author.getMiddleName().charAt(0), author.getLastName());
     }
 }

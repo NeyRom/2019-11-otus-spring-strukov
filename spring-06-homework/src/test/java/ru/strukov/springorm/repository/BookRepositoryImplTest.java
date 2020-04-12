@@ -76,15 +76,6 @@ class BookRepositoryImplTest {
     }
 
     @Test
-    @DisplayName("возвращает книги по id автора")
-    void shouldFindBookByAuthor() {
-        val book = bookRepository.findAllByAuthor(3);
-        assertThat(book)
-                .hasSize(1)
-                .contains(sameBook);
-    }
-
-    @Test
     @DisplayName("добавляет новую книгу")
     void shouldInsertBook() {
         anotherBook.setId(0);

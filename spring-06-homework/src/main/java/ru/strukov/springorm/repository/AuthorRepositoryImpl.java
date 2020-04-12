@@ -26,4 +26,5 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     public Optional<Author> findById(long id) {
         return Optional.ofNullable(entityManager.find(Author.class, id));
     }
+
 }
