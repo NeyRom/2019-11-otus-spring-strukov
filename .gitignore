@@ -9,7 +9,6 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-*.iml
 
 # Package Files #
 *.jar
@@ -22,10 +21,14 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/2019-11-otus-spring-strukov.iml
 /.idea/
-/spring-02-homework/target/
-/spring-03-homework/target/
-/spring-04-homework/target/
-/spring-05-homework/target/
-/spring-06-homework/target/
+.idea
+*.iws
+*.iml
+*.ip
+/spring-01-homework/target
+/spring-02-homework/target
+/spring-03-homework/target
+/spring-04-homework/target
+/spring-05-homework/target
+/spring-06-homework/target
