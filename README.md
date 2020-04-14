@@ -15,4 +15,7 @@ spring-01-homework
  
  spring-05-homework
   - Задание на разработку книгохранилища с использование Spring JDBC. Использована СУБД PostgreSQL
-   в контейнере Docker.  
+   в контейнере Docker. 
+ 
+ spring-06-homework
+  - Задание на разработку книгохранилища с использование Spring ORM.
