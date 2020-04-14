@@ -3,7 +3,6 @@ package ru.strukov.testing.dao;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
@@ -21,11 +20,10 @@ import java.util.List;
  */
 
 @Component
-@Primary
 public class TestQuestionDaoImpl implements TestQuestionDao {
     private final String resourceName;
     private final String resourceExtension;
-    private final IOService IOService;
+    private final IOService ioService;
     private final ResourceLoader resourceLoader;
 
     @Autowired
@@ -35,7 +33,7 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
                                ResourceLoader resourceLoader) {
         this.resourceName = resourcePath;
         this.resourceExtension = resourceExtension;
-        this.IOService = ioService;
+        this.ioService = ioService;
         this.resourceLoader = resourceLoader;
     }
 
@@ -51,7 +49,7 @@ public class TestQuestionDaoImpl implements TestQuestionDao {
                     .build()
                     .parse();
         } catch (IllegalStateException ise) {
-            IOService.printMessage("Некорректный формат CSV-файла");
+            ioService.printMessage("Некорректный формат CSV-файла");
             ise.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

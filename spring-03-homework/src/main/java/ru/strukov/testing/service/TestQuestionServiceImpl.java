@@ -2,7 +2,6 @@ package ru.strukov.testing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import ru.strukov.testing.dao.TestQuestionDao;
 import ru.strukov.testing.domain.Student;
@@ -16,7 +15,6 @@ import java.util.Locale;
  */
 
 @Component
-@Primary
 public class TestQuestionServiceImpl implements TestQuestionService {
     private final TestQuestionDao testQuestionDao;
     private Student student;

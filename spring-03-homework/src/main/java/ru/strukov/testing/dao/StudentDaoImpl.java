@@ -1,6 +1,5 @@
 package ru.strukov.testing.dao;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import ru.strukov.testing.domain.Student;
 
@@ -9,7 +8,6 @@ import ru.strukov.testing.domain.Student;
  */
 
 @Component
-@Primary
 public class StudentDaoImpl implements StudentDao {
 
     @Override

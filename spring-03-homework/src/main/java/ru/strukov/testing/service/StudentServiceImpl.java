@@ -15,20 +15,22 @@ import java.util.Locale;
 @Component
 public class StudentServiceImpl implements StudentService {
     private final StudentDao studentDao;
-    private final IOService IOService;
+    private final IOService ioService;
     private final MessageSource messageSource;
 
     @Autowired
-    public StudentServiceImpl(StudentDao studentDao, IOService IOService, MessageSource messageSource) {
+    public StudentServiceImpl(StudentDao studentDao, IOService ioService, MessageSource messageSource) {
         this.studentDao = studentDao;
-        this.IOService = IOService;
+        this.ioService = ioService;
         this.messageSource = messageSource;
     }
 
     @Override
     public Student setName(Locale locale) {
-        String firstName = IOService.getStringWithMessage(messageSource.getMessage("Student.firstName", null, locale));
-        String lastName = IOService.getStringWithMessage(messageSource.getMessage("Student.lastName", null, locale));
+        String firstName = ioService
+                .getStringWithMessage(messageSource.getMessage("Student.firstName", null, locale));
+        String lastName = ioService
+                .getStringWithMessage(messageSource.getMessage("Student.lastName", null, locale));
         return studentDao.createStudent(firstName, lastName);
     }
 

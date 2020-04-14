@@ -1,7 +1,6 @@
 package ru.strukov.testing.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.io.PrintStream;
@@ -12,7 +11,6 @@ import java.util.Scanner;
  */
 
 @Component
-@Primary
 public class ConsoleServiceImpl implements IOService {
     private final Scanner input;
     private final PrintStream output;
