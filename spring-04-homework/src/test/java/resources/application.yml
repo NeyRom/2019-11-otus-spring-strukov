@@ -1,9 +1,0 @@
-resource:
-  name: qna_
-  extension: .csv
-
-spring:
-  shell:
-    interactive:
-      enabled: false
-
