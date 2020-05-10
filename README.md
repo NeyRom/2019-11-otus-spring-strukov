@@ -19,3 +19,6 @@ spring-01-homework
  
  spring-06-homework
   - Задание на разработку книгохранилища с использование Spring ORM.
+ 
+  spring-07-homework
+   - Задание на разработку книгохранилища с использование Spring JPA.

@@ -25,10 +25,10 @@ hs_err_pid*
 *.iws
 *.iml
 *.ip
-/spring-01-homework/
-/spring-02-homework/
-/spring-03-homework/
-/spring-04-homework/
-/spring-05-homework/
-/spring-06-homework/
+/spring-01-homework/target
+/spring-02-homework/target
+/spring-03-homework/target
+/spring-04-homework/target
+/spring-05-homework/target
+/spring-06-homework/target
 /spring-07-homework/target
