@@ -5,6 +5,9 @@ spring:
     initialization-mode: always
     schema: schema.sql
     data: data.sql
+  shell:
+    interactive:
+      enabled: false
 
   jpa:
     generate-ddl: false
@@ -19,4 +22,4 @@ spring:
 
 logging:
   level:
-    ROOT: warn
+    ROOT: info
