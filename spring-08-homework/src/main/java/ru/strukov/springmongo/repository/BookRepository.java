@@ -10,5 +10,5 @@ public interface BookRepository extends MongoRepository<Book, ObjectId> {
     Book findFirstByNumber(int number);
 
     @Nullable
-    void deleteSingleByNumber(int number);
+    Long deleteSingleByNumber(int number);
 }

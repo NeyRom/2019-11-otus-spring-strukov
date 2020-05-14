@@ -116,7 +116,7 @@ public class PopulateServiceMongoImpl implements PopulateService {
         book6.setTitle("Титан");
         book6.setIsbn("9785446717279");
         book6.setReleaseDate(LocalDate.parse("2012-09-18"));
-        book6.setNumber(5);
+        book6.setNumber(6);
         book6.setAuthor(authorRepository.findFirstByNumber(1));
         book6.setGenres(new ArrayList<>());
         book6.getGenres().add(new Genre("драма"));

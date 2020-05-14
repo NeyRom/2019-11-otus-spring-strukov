@@ -84,8 +84,12 @@ public class MongoCommands {
 
     @ShellMethod(value = "Delete book by Number", key = {"del"})
     public String deleteBook(@ShellOption("--num") int number) {
-        bookService.delete(number);
-        return "Книга удалена";
+        try {
+            bookService.delete(number);
+            return "Книга удалена";
+        } catch (IllegalArgumentException e) {
+            return "Произошла ошибка";
+        }
     }
 
     @ShellMethod(value = "Add comment to book", key = {"com"})

@@ -3,6 +3,7 @@ package ru.strukov.springmongo.domain;
 /* Created by Roman Strukov in 11.05.2020 */
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -18,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Book {
     @Id
+    @EqualsAndHashCode.Exclude
     private ObjectId id;
 
     private String title;

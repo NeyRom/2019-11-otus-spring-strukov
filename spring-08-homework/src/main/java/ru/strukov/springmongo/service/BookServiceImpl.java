@@ -82,7 +82,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(int number) {
-        bookRepository.deleteSingleByNumber(number);
+        Long deleted = bookRepository.deleteSingleByNumber(number);
+        if (deleted != null && deleted == 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private String getIsbnFromString(String isbn) {
