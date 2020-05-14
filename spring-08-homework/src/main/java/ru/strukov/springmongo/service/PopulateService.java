@@ -4,4 +4,5 @@ package ru.strukov.springmongo.service;
 
 public interface PopulateService {
     void populateAuthors();
+    void populateBooks();
 }

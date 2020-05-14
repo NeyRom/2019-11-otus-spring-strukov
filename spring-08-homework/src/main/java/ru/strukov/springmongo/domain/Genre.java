@@ -9,4 +9,8 @@ import lombok.NoArgsConstructor;
 public class Genre {
 
     private String title;
+
+    public Genre(String title) {
+        this.title = title;
+    }
 }
