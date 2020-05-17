@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      database: bookstore
+
+logging:
+  level:
+    ROOT: info
