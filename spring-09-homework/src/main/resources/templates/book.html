@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Book detail</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <h5 class="card-header">Книга</h5>
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${book.title}">Book</h3>
+                    <p class="card-text">Автор: <b th:text="${book.author.firstName} + ' ' + ${book.author.lastName}">Vasya</b></p>
+                    <p class="card-text">ISBN: <span th:text="${book.isbn}">ISBN</span>, дата выхода:
+                        <span th:text="${book.releaseDate}">releaseDate</span></p>
+                    <div th:unless="${#lists.isEmpty(book.comments)}">Комментарии:
+                        <ul class="list-style">
+                            <li th:each="comment : ${book.comments}" th:text="${comment.content}">Comment</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Редактировать</a>
+                        <a href="#" class="btn secondary">Добавить комментарий</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

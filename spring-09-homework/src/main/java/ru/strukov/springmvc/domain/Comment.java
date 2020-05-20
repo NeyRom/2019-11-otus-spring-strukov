@@ -16,4 +16,9 @@ import java.time.LocalDateTime;
 public class Comment {
     private String content;
     private LocalDateTime time;
+
+    public Comment(String content) {
+        this.content = content;
+        time = LocalDateTime.now();
+    }
 }

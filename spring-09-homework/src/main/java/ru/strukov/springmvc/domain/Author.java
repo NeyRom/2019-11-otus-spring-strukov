@@ -26,6 +26,7 @@ public class Author {
     private String middleName;
 
     public Author(String firstName, String lastName, String middleName) {
+        this.id = new ObjectId();
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
