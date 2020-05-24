@@ -7,24 +7,41 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-md-center">
         <div class="col-sm-6">
             <div class="card">
                 <h5 class="card-header">Книга</h5>
                 <div class="card-body">
                     <h3 class="card-title" th:text="${book.title}">Book</h3>
-                    <p class="card-text">Автор: <b th:text="${book.author.firstName} + ' ' + ${book.author.lastName}">Vasya</b></p>
-                    <p class="card-text">ISBN: <span th:text="${book.isbn}">ISBN</span>, дата выхода:
-                        <span th:text="${book.releaseDate}">releaseDate</span></p>
+                    <p th:if="${book.author != null}" class="card-text">Автор: <b
+                            th:text="${book.author.firstName} + ' ' + ${book.author.lastName}">
+                        Vasya</b></p>
+                    <p class="card-text">ISBN: <span
+                            th:text="|${#strings.substring(book.isbn,0,3)}-${#strings.substring(book.isbn,3,4)}-| +
+                            |${#strings.substring(book.isbn,4,6)}-${#strings.substring(book.isbn,6,12)}-| +
+                            ${#strings.substring(book.isbn,12,13)}">
+                        ISBN</span>, дата выхода: <span th:text="${#temporals.format(book.releaseDate, 'dd.MM.yyyy')}">
+                        releaseDate</span></p>
                     <div th:unless="${#lists.isEmpty(book.comments)}">Комментарии:
                         <ul class="list-style">
-                            <li th:each="comment : ${book.comments}" th:text="${comment.content}">Comment</li>
+                            <li th:each="comment : ${book.comments}"
+                                th:utext="${comment.content} + ' <i>(' +
+                                ${#temporals.format(comment.time, 'dd.MM.yyyy HH:mm')} + ')</i>'">Comment
+                            </li>
                         </ul>
-                        <a href="#" class="btn btn-primary">Редактировать</a>
-                        <a href="#" class="btn secondary">Добавить комментарий</a>
                     </div>
+                    <a href="#" th:href="@{edit/__${book.id}__}" class="btn btn-light">Редактировать</a>
+                    <a href="#" th:href="@{delete/__${book.id}__}" class="btn btn-danger">Удалить</a>
                 </div>
             </div>
+            <form th:action="@{/books/comment}" method="post">
+                <div class="form-group">
+                    <label for="commentInput">Комментарий</label>
+                    <input type="text" class="form-control" id="commentInput" name="commentInput">
+                    <input type="hidden" name="bookId" th:value="${book.id}">
+                </div>
+                <button type="submit" class="btn btn-light">Добавить комментарий</button>
+            </form>
         </div>
     </div>
 </div>
