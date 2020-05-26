@@ -15,7 +15,6 @@ import ru.strukov.springmvc.service.BookService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Roman Strukov
@@ -34,7 +33,7 @@ public class BookController {
 
     @GetMapping("/")
     public String redirectToBooks() {
-        return "redirect:books";
+        return "redirect:/books";
     }
 
     @GetMapping("/books")
@@ -46,12 +45,12 @@ public class BookController {
 
     @GetMapping("/books/{id}")
     public String getBook(@PathVariable("id") ObjectId id, Model model) {
-        Optional<Book> book = bookRepository.findById(id);
-        book.ifPresent(model::addAttribute);
+        Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
+        model.addAttribute(book);
         return "book";
     }
 
-    @PostMapping("books/comment")
+    @PostMapping("/books/comment")
     public String commentForm(HttpServletRequest request, Model model) {
         ObjectId id = new ObjectId(request.getParameter("bookId"));
         Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
@@ -67,28 +66,28 @@ public class BookController {
         return "book";
     }
 
-    @GetMapping("books/add")
+    @GetMapping("/books/add")
     public String getAddBook(Model model) {
         model.addAttribute("book", new Book());
         model.addAttribute("mode", "add");
         return "book-edit";
     }
 
-    @GetMapping("books/edit/{id}")
+    @GetMapping("/books/edit/{id}")
     public String getEditBook(@PathVariable("id") ObjectId id, Model model) {
-        Optional<Book> book = bookRepository.findById(id);
-        book.ifPresent(model::addAttribute);
+        Book book = bookRepository.findById(id).orElseThrow(NotFoundException::new);
+        model.addAttribute(book);
         model.addAttribute("mode", "edit");
         return "book-edit";
     }
 
-    @PostMapping("books/edit")
+    @PostMapping("/books/edit")
     public String editBook(Book book, Model model) {
         model.addAttribute("book", bookService.saveBook(book));
         return "book";
     }
 
-    @GetMapping("books/delete/{id}")
+    @GetMapping("/books/delete/{id}")
     public String deleteBook(@PathVariable("id") ObjectId id) {
         bookRepository.deleteById(id);
         return "redirect:/books";
