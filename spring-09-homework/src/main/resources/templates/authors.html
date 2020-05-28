@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Authors</title>
+</head>
+<body>
+<h2 class="text-center">Авторы:</h2>
+<div class="container">
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th>№</th>
+        <th>Автор</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="author,iStat : ${authors}">
+        <td th:text="${iStat.count}">Number</td>
+        <td th:text="${author.firstName} + ' ' + ${author.lastName}">Author name</td>
+        <td><a href="#authors" th:href="@{author(id=${author.id})}">Details</a></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
