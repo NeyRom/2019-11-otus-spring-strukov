@@ -25,3 +25,7 @@ spring-07-homework
 
 spring-08-homework
  - Задание на разработку книгохранилища с использование MongoDb и Spring MongoRepository
+ 
+spring-09-homework
+ - Задание на разработку WebUI для книгохранилища с использование SpringMVC и Thymeleaf
+ . Заполнение БД с использованием Mongock
