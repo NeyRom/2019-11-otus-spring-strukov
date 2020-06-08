@@ -29,3 +29,7 @@ spring-08-homework
 spring-09-homework
  - Задание на разработку WebUI для книгохранилища с использование SpringMVC и Thymeleaf
  . Заполнение БД с использованием Mongock
+ 
+spring-10-homework
+ - Задание на разработку WebUI для книгохранилища с использование Spring REST Controller и фронтендом на Vue JS
+ . Заполнение БД с использованием Mongock
