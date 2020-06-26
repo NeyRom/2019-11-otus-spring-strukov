@@ -3,10 +3,9 @@ package ru.strukov.springauth.mongock.changelog;
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import ru.strukov.springauth.domain.Author;
-import ru.strukov.springauth.domain.Book;
-import ru.strukov.springauth.domain.Comment;
-import ru.strukov.springauth.domain.Genre;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.strukov.springauth.domain.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,6 +18,11 @@ import java.util.List;
 @ChangeLog
 public class DbChangeLog {
     private List<Author> authors;
+    private final PasswordEncoder passwordEncoder;
+
+    public DbChangeLog() {
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     @ChangeSet(order = "001", id = "insertAuthors", author = "Roman Strukov")
     public void insertAuthors(MongoTemplate template) {
@@ -29,6 +33,11 @@ public class DbChangeLog {
     @ChangeSet(order = "002", id = "insertBooks", author = "Roman Strukov")
     public void insertBooks(MongoTemplate template) {
         prepareBooks().forEach(template::insert);
+    }
+
+    @ChangeSet(order = "003", id = "insertUsers", author = "Roman Strukov")
+    public void insertUsers(MongoTemplate template) {
+        prepareUsers().forEach(template::insert);
     }
 
     private List<Author> prepareAuthors() {
@@ -83,5 +92,16 @@ public class DbChangeLog {
         books.add(book6);
 
         return books;
+    }
+
+    private List<BookstoreUser> prepareUsers() {
+        List<BookstoreUser> users = new ArrayList<>();
+        BookstoreUser user1 = new BookstoreUser("reader", passwordEncoder.encode("password"));
+        users.add(user1);
+
+        BookstoreUser user2 = new BookstoreUser("admin", passwordEncoder.encode("admin"));
+        users.add(user2);
+
+        return users;
     }
 }

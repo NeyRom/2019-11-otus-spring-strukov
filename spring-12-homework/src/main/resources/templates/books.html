@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Bookstore with Spring MVC</title>
+</head>
+<body>
+<h2 class="text-center">Библиотека:</h2>
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>ISBN</th>
+            <th>Дата выхода</th>
+            <th>Жанры</th>
+            <th>Подробности</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${bookStat.count}">Num</td>
+            <td th:text="${book.title}">Title</td>
+            <td th:text="${book.author.firstName} + ' ' + ${book.author.lastName}">Author</td>
+            <td th:text="${#strings.substring(book.isbn,0,3)} + '-' + ${#strings.substring(book.isbn,3,4)} + '-' +
+            ${#strings.substring(book.isbn,4,6)} + '-' + ${#strings.substring(book.isbn,6,12)} + '-' +
+            ${#strings.substring(book.isbn,12,13)}">ISBN</td>
+            <td th:text="${#temporals.format(book.releaseDate, 'dd.MM.yyyy')}">Release date</td>
+            <td><span th:each="genre : ${book.genres}"
+                       th:text="${genreStat.last}? ${genre.title} + '' : ${genre.title} + ', '">Genres
+                </span>
+            </td>
+            <td><a href="#books" th:href="@{book/__${book.id}__}">Details</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a href="#" th:href="@{book/add}" class="btn btn-primary">Добавить</a>
+        <a href="#book" th:href="@{author}">Авторы</a>
+    </div>
+
+</div>
+
+</body>
+</html>
